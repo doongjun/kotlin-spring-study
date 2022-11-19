@@ -10,7 +10,7 @@ class Delivery(
     val id: Long? = null,
 
     @OneToOne(mappedBy = "delivery", fetch = LAZY)
-    val order: Order? = null,
+    var order: Order? = null,
 
     @Embedded
     var address: Address? = null,

@@ -21,4 +21,15 @@ class OrderItem(
 
     var orderPrice: Int = 0,
     val count: Int = 0
-)
+) {
+    companion object {
+        fun createOrderItem(item: Item, orderPrice: Int, count: Int): OrderItem {
+            item.removeStock(count)
+            return OrderItem(
+                item = item,
+                orderPrice = orderPrice,
+                count = count
+            )
+        }
+    }
+}

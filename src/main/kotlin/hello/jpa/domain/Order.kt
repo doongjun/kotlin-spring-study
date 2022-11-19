@@ -36,14 +36,34 @@ class Order(
         member.orders.add(this)
     }
 
-    public fun addOrderItem(orderItem: OrderItem) {
+    fun addOrderItem(orderItem: OrderItem) {
         orderItems.add(orderItem)
-        // TODO: set order
+        orderItem.order = this
     }
 
     @JvmName("setDeliveryCustom")
-    public fun setDelivery(delivery: Delivery) {
+    fun setDelivery(delivery: Delivery) {
         this.delivery = delivery
-        // TODO: set delivery
+        delivery.order = this
+    }
+
+    /* 생성 메서드 */
+    companion object {
+        fun createOrder(
+            member: Member,
+            delivery: Delivery,
+            vararg orderItems: OrderItem
+        ): Order {
+            val order = Order(
+                status = OrderStatus.ORDER,
+                orderDate = LocalDateTime.now()
+            )
+            order.setMember(member)
+            order.setDelivery(delivery)
+            for(orderItem in orderItems) {
+                order.addOrderItem(orderItem)
+            }
+            return order
+        }
     }
 }

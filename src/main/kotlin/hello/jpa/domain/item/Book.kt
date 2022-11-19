@@ -8,4 +8,13 @@ import javax.persistence.Entity
 class Book(
     var author: String? = null,
     var isbn: String? = null
-): Item()
+): Item() {
+    constructor(author: String?, isbn: String?, name: String?, price: Int, stockQuantity: Int): this(
+        author = author,
+        isbn = isbn
+    ) {
+        this.name = name
+        this.price = price
+        this.stockQuantity = stockQuantity
+    }
+}

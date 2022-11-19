@@ -1,6 +1,7 @@
 package hello.jpa.domain.item
 
 import hello.jpa.domain.Category
+import hello.jpa.exception.NotEnoughStockException
 import javax.persistence.Column
 import javax.persistence.DiscriminatorColumn
 import javax.persistence.Entity
@@ -24,4 +25,17 @@ open class Item(
 
     @ManyToMany(mappedBy = "items")
     open val categories: List<Category> = listOf(),
-)
+) {
+    fun addStock(quantity: Int) {
+        this.stockQuantity += quantity
+    }
+
+    fun removeStock(quantity: Int) {
+        val restStock = this.stockQuantity - quantity
+        if(restStock < 0) {
+            throw NotEnoughStockException("need more stock")
+        }
+        this.stockQuantity = restStock
+    }
+
+}
