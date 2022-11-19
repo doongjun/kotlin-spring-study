@@ -14,6 +14,9 @@ class MemberService(
     fun findOne(id: Long): Member =
         memberRepository.findById(id).orElseThrow()
 
+    fun findMembers(): List<Member> =
+        memberRepository.findAll()
+
     fun join(member: Member): Long =
         memberRepository.save(member).id!!
 
