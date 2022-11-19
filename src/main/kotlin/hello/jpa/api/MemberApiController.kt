@@ -2,9 +2,13 @@ package hello.jpa.api
 
 import hello.jpa.api.vm.CreateMemberRequest
 import hello.jpa.api.vm.CreateMemberResponse
+import hello.jpa.api.vm.UpdateMemberRequest
+import hello.jpa.api.vm.UpdateMemberResponse
 import hello.jpa.domain.Member
 import hello.jpa.service.MemberService
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -29,5 +33,18 @@ class MemberApiController(
         CreateMemberResponse(
             id = memberService.join(Member(name = request.name))
         )
+
+    @PutMapping("/v2/members/{id}")
+    fun updateMemberV2(
+        @PathVariable("id") id: Long,
+        @RequestBody @Valid request: UpdateMemberRequest
+    ): UpdateMemberResponse {
+        memberService.update(id, request.name)
+        val findMember = memberService.findOne(id)
+        return UpdateMemberResponse(
+            id = findMember.id,
+            name = findMember.name
+        )
+    }
 
 }
