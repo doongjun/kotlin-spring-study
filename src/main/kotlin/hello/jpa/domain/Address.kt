@@ -5,19 +5,19 @@ import javax.persistence.Embeddable
 
 @Embeddable
 class Address(
-    city: String,
-    street: String,
-    zipcode: String
+    city: String?,
+    street: String?,
+    zipcode: String?
 ) {
     constructor() : this("", "", "")
 
     @Column
-    var city: String = city
+    var city: String? = city
         private set
     @Column
-    var street: String = street
+    var street: String? = street
         private set
     @Column
-    var zipcode: String = zipcode
+    var zipcode: String? = zipcode
         private set
 }
