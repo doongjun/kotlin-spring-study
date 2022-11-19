@@ -1,18 +1,10 @@
 package hello.jpa.api
 
-import hello.jpa.api.vm.CreateMemberRequest
-import hello.jpa.api.vm.CreateMemberResponse
-import hello.jpa.api.vm.UpdateMemberRequest
-import hello.jpa.api.vm.UpdateMemberResponse
+import hello.jpa.api.vm.*
 import hello.jpa.domain.Address
 import hello.jpa.domain.Member
 import hello.jpa.service.MemberService
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
@@ -20,6 +12,16 @@ import javax.validation.Valid
 class MemberApiController(
     private val memberService: MemberService
 ) {
+
+    @GetMapping("/v1/members")
+    fun membersV1(): List<Member> =
+        memberService.findMembers()
+
+    @GetMapping("/v2/members")
+    fun membersV2(): Result<List<MemberDto>> =
+        Result(
+            data = memberService.findMembers().map { MemberDto(it) }
+        )
 
     @PostMapping("/v1/members")
     fun saveMemberV1(
@@ -41,7 +43,6 @@ class MemberApiController(
             )
         )
     }
-
 
     @PutMapping("/v2/members/{id}")
     fun updateMemberV2(
