@@ -1,9 +1,9 @@
 package hello.jpa.api
 
+import hello.jpa.api.vm.SimpleOrderDto
 import hello.jpa.domain.Order
-import hello.jpa.repository.OrderRepository
-import hello.jpa.repository.OrderRepositoryCustom
 import hello.jpa.repository.condition.OrderSearchCondition
+import hello.jpa.repository.query.dto.OrderSimpleQueryDto
 import hello.jpa.service.OrderService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,5 +21,14 @@ class OrderSimpleApiController(
     @GetMapping("/v1/simple-orders")
     fun ordersV1(): List<Order> =
         orderService.findByCriteria(OrderSearchCondition())
+
+    @GetMapping("/v2/simple-orders")
+    fun ordersV2(): List<SimpleOrderDto> =
+        orderService.findByCriteria(OrderSearchCondition())
+            .map { SimpleOrderDto(it) }
+
+    @GetMapping("/v3/simple-orders")
+    fun ordersV3(): List<OrderSimpleQueryDto> =
+        orderService.findAll()
 
 }
