@@ -4,8 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import hello.jpa.domain.Order
 import hello.jpa.domain.OrderStatus
-import hello.jpa.domain.QOrder
-import hello.jpa.domain.QOrder.*
+import hello.jpa.domain.QOrder.order
 import hello.jpa.repository.condition.OrderSearchCondition
 import org.springframework.stereotype.Repository
 import org.springframework.util.StringUtils.hasText
