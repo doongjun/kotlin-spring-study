@@ -1,5 +1,6 @@
 package hello.jpa.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.Column
 import javax.persistence.Embedded
 import javax.persistence.Entity
@@ -18,6 +19,7 @@ class Member(
     @Embedded
     var address: Address? = null,
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     val orders: MutableList<Order> = mutableListOf()
 )
