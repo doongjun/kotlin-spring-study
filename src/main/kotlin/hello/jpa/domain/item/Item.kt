@@ -1,5 +1,6 @@
 package hello.jpa.domain.item
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import hello.jpa.domain.Category
 import hello.jpa.exception.NotEnoughStockException
 import javax.persistence.Column
@@ -23,6 +24,7 @@ open class Item(
     open var price: Int = 0,
     open var stockQuantity: Int = 0,
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "items")
     open val categories: List<Category> = listOf(),
 ) {

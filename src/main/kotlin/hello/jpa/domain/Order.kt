@@ -1,5 +1,6 @@
 package hello.jpa.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import java.time.LocalDateTime
 import javax.persistence.*
 import javax.persistence.CascadeType.*
@@ -16,6 +17,7 @@ class Order(
     @JoinColumn(name = "member_id")
     var member: Member? = null,
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = [ALL])
     val orderItems: MutableList<OrderItem> = mutableListOf(),
 
