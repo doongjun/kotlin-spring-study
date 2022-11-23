@@ -20,6 +20,11 @@ class OrderService(
     ): List<Order> =
         orderRepositoryCustom.findByCriteria(orderSearchCondition)
 
+    fun findByCriteriaFetch(
+        orderSearchCondition: OrderSearchCondition
+    ): List<Order> =
+        orderRepositoryCustom.findByCriteriaFetch(orderSearchCondition)
+
     fun findAll(): List<OrderSimpleQueryDto> =
         orderQueryRepository.findOrderDtos()
 
