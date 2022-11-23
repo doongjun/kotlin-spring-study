@@ -28,6 +28,21 @@ class OrderRepositoryCustom(
             )
             .fetch()
 
+    fun findByCriteriaFetch(
+        orderSearchCondition: OrderSearchCondition
+    ): List<Order> = queryFactory
+        .select(order)
+        .distinct()
+        .from(order)
+        .innerJoin(order.member).fetchJoin()
+        .innerJoin(order.delivery).fetchJoin()
+        .leftJoin(order.orderItems).fetchJoin()
+        .where(
+            orderStatusEq(orderSearchCondition.orderStatus),
+            memberNameContains(orderSearchCondition.memberName)
+        )
+        .fetch()
+
     private fun orderStatusEq(orderStatus: OrderStatus?): BooleanExpression? =
         orderStatus?.let { order.status.eq(it) }
 
