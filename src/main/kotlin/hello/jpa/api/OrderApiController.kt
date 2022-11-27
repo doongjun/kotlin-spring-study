@@ -23,5 +23,10 @@ class OrderApiController(
         orderService.findByCriteriaFetch(OrderSearchCondition())
             .map { OrderDto(it) }
 
+    @GetMapping("/v2.1/orders")
+    fun ordersV2_page(): List<OrderDto> =
+        orderService.findByCriteria(OrderSearchCondition())
+            .map { OrderDto(it) }
+
 
 }
